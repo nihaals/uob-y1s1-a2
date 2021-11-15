@@ -1,2 +1,7 @@
 /out/
-/.idea/vcs.xml
+/.idea/
+!/.idea/.gitignore
+!/.idea/.name
+!/.idea/misc.xml
+!/.idea/modules.xml
+!/.idea/runConfigurations.xml

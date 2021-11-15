@@ -33,7 +33,7 @@ public class BingoController {
           create an ArrayList of BingoCard cards
      */
 
-   //implement code here
+    //implement code here
 
     /* TODO
           implement getters and setters for currentRowSize / currentColumnSize
@@ -127,7 +127,7 @@ public class BingoController {
         /* TODO
               create new BingoCard
          */
-       //insert code here
+        //insert code here
         /* TODO
               setCardNumbers for the new card
          */
@@ -153,7 +153,7 @@ public class BingoController {
         /* TODO
               call printCardAsGrid() method here, Hint: use getCardNumbers() when getting cards
          */
-        }
+    }
 
     /* TODO
           this is for option 4, list existing cards where all the cards are printed as a grid
@@ -191,10 +191,10 @@ public class BingoController {
         //insert code here
     }
 
-   /* TODO
-         make use of isWinner() to determine who the winner is
-         the method should return the index of who the winner is
-    */
+    /* TODO
+          make use of isWinner() to determine who the winner is
+          the method should return the index of who the winner is
+     */
     public int getWinnerId() {
         //insert code here
         return 0;
@@ -221,16 +221,13 @@ public class BingoController {
     }
 
     public String getMenu(String[] menuItems) {
-    /* TODO
-        change this method so it prints a proper numbered menu
-        analyse the correct format from the ExpectedOutput files
-        menuText is returned
-     */
         StringBuilder menuText = new StringBuilder();
-
-        //insert code here
-        return null;
+        for (int i = 0; i < menuItems.length; i++) {
+            menuText.append(" ").append(i).append(": ").append(menuItems[i]).append("\n");
+        }
+        return menuText.toString();
     }
+
     /* TODO
           complete the menu using switch to call the appropriate method calls
      */
@@ -238,7 +235,9 @@ public class BingoController {
         boolean finished = false;
         do {
             switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
-                //insert code here
+                case "0":
+                    finished = true;
+                    break;
             }
         } while (!finished);
     }

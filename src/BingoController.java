@@ -168,10 +168,9 @@ public class BingoController {
         for (int i = 0; i < rowSize; i++) {
             for (int j = 0; j < columnSize; j++) {
                 int number = Integer.parseInt(numberArray[i * columnSize + j]);
-                if (j == 0) {
-                    System.out.printf("%2d", number);
-                } else {
-                    System.out.printf("%3d", number);
+                System.out.printf("%2d", number);
+                if (j < columnSize - 1) {
+                    System.out.print(Defaults.getNumberSeparator());
                 }
             }
             System.out.println();
@@ -186,7 +185,9 @@ public class BingoController {
         String sep = Toolkit.getInputForMessage("Enter the new separator");
         /* TODO
               make use of setNumberSeparator() and getNumberSeparator()
-         */
+        */
+        Defaults.setNumberSeparator(sep);
+        System.out.printf("Separator is '%s'%n", Defaults.getNumberSeparator());
     }
 
     /* TODO

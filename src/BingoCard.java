@@ -75,7 +75,7 @@ public class BingoCard {
                 sb.append(numbers[i][j]).append(Defaults.getNumberSeparator());
             }
         }
-        return sb.toString();
+        return sb.substring(0, sb.toString().length() - Defaults.getNumberSeparator().length());
     }
 
     public void setCardNumbers(String[] numbersAsStrings) {

@@ -11,14 +11,9 @@ public class Toolkit {
 
     public static String printArray(String[] array) {
         StringBuilder sb = new StringBuilder();
-    /* TODO
-        create a loop to print the numbers out once a user has inputted the BingoCard numbers, separated by commas (trim leading / trailing spaces)
-        check the expected output here to ensure that it appears as it should
-        return as a sb.toString()
-   */
         for (int i = 0; i < array.length; i++) {
             sb.append(array[i].trim()).append(", ");
         }
-        return sb.toString().substring(0, sb.toString().length() - 2);
+        return sb.substring(0, sb.toString().length() - 2);
     }
 }

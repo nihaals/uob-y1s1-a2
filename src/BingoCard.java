@@ -25,16 +25,10 @@ public class BingoCard {
     }
 
     public void resetMarked() {
-        /* TODO
-            Reset the data structure to be entirely false. Java defaults booleans
-            to false so you can make use of that.
-        */
-
+        markedOff = new boolean[numberOfRows][numberOfColumns];
     }
 
-    /* TODO implement the getters and setters for rows / columns as seen below */
     public int getNumberOfRows() {
-        /* TODO change the return from 0 to the appropriate return */
         return numberOfRows;
     }
 
@@ -43,35 +37,17 @@ public class BingoCard {
     }
 
     public int getNumberOfColumns() {
-        /* TODO change the return from 0 to the appropriate return */
         return numberOfColumns;
     }
 
     public void setNumberOfColumns(int numberOfColumns) {
-        /* TODO implement code here */
         this.numberOfColumns = numberOfColumns;
     }
 
     public String getCardNumbers() {
-        /* TODO
-            flatten the numbers array into a single string with each number separated by the currently required separator
-            but no leading or trailing copies of that separator.
-            For example if the separator were currently a single space,
-            then no extra spaces before the first number nor after the last number.
-        */
-
         StringBuilder sb = new StringBuilder();
-        /* TODO
-              all the cards are stored as a grid ([][] numbers) of rows / columns, so for example, numbers 3 4 5 6 will be
-              printed as follows:
-              3  4
-              5  6
-        */
-        /* TODO
-              return the grid as a string
-         */
-        for (int i = 0; i < numberOfRows; i++) {
-            for (int j = 0; j < numberOfColumns; j++) {
+        for (int i = 0; i < getNumberOfRows(); i++) {
+            for (int j = 0; j < getNumberOfColumns(); j++) {
                 sb.append(numbers[i][j]).append(Defaults.getNumberSeparator());
             }
         }
@@ -79,10 +55,6 @@ public class BingoCard {
     }
 
     public void setCardNumbers(String[] numbersAsStrings) {
-        /* TODO
-            the array of strings [] numbersAsStrings is cast to an integer as [] numbersList, for you
-            set the grid from this list
-        */
         int[] numbersList =
                 Arrays.stream(numbersAsStrings).mapToInt(Integer::parseInt).toArray();
 
@@ -93,17 +65,9 @@ public class BingoCard {
                 index++;
             }
         }
-
-        /* TODO
-            the goal of this method is to get the numbers entered into the [][] numbers format
-        */
     }
 
     public void markNumber(int number) {
-        /* TODO
-            make use of the [][] markedOff to mark off numbers from [][] numbers as they match
-            if not matching an appropriate message must be printed, verify against expected output files
-        */
         boolean found = false;
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
@@ -121,11 +85,6 @@ public class BingoCard {
     }
 
     public boolean isWinner() {
-        /* TODO
-            check if there is a winner or not
-            all elements of [][] markedOff should be marked off to have a winner (full house)
-        */
-        // Check if all elements of markedOff are true
         for (int i = 0; i < numberOfRows; i++) {
             for (int j = 0; j < numberOfColumns; j++) {
                 if (!markedOff[i][j]) {

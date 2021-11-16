@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static java.lang.Integer.parseInt;
 
@@ -26,42 +27,32 @@ public class BingoController {
           create an arraylist of BingoCard cards
           include getters and setters for row / column sizes
      */
-    private int currentRowSize;
-    private int currentColumnSize;
+    private int currentRowSize = Defaults.DEFAULT_NUMBER_OF_ROWS;
+    private int currentColumnSize = Defaults.DEFAULT_NUMBER_OF_COLUMNS;
 
     /* TODO
           create an ArrayList of BingoCard cards
      */
 
-    //implement code here
+    private ArrayList<BingoCard> cards = new ArrayList();
 
     /* TODO
           implement getters and setters for currentRowSize / currentColumnSize
      */
     public int getCurrentRowSize() {
-        /* TODO
-              change the return from 0 to the appropriate return
-     */
-        return 0;
+        return currentRowSize;
     }
 
     public void setCurrentRowSize(int currentRowSize) {
-       /* TODO
-             implement code here
-     */
+       this.currentRowSize = currentRowSize;
     }
 
     public int getCurrentColumnSize() {
-        /* TODO
-              change the return from 0 to the appropriate return
-     */
-        return 0;
+        return currentColumnSize;
     }
 
     public void setCurrentColumnSize(int currentColumnSize) {
-       /* TODO
-             implement code here
-     */
+       this.currentColumnSize = currentColumnSize;
     }
 
     /* TODO
@@ -76,9 +67,9 @@ public class BingoController {
      */
     public void setSize() {
         setCurrentRowSize(parseInt(Toolkit.getInputForMessage(
-                "")));
+                "Enter the number of rows for the card")));
         setCurrentColumnSize(parseInt(Toolkit.getInputForMessage(
-                "")));
+                "Enter the number of columns for the card")));
         System.out.printf("The bingo card size is set to %d rows X %d columns%n",
                 getCurrentRowSize(),
                 getCurrentColumnSize());
@@ -93,7 +84,7 @@ public class BingoController {
         /* TODO
               calculate how many numbers are required to be entered based on the number or rows / columns
          */
-        int numbersRequired = 0;
+        int numbersRequired = currentRowSize * currentColumnSize;
 
         String[] numbers;
 
@@ -111,31 +102,34 @@ public class BingoController {
         /* TODO
               verify if the correctAmountOfNumbersEntered is true or false dependant on the numbersRequired calculation
          */
-            correctAmountOfNumbersEntered = false; //changes according to calculation inserted here
+            correctAmountOfNumbersEntered = numbers.length == numbersRequired;
 
         /* TODO
               verify whether the numbers entered is not correct by printing an appropriate message
               verify against the expected output files
          */
-            //insert code here
+            if (!correctAmountOfNumbersEntered) {
+                System.out.printf("Try again: you entered %d numbers instead of %d%n", numbers.length, numbersRequired);
+            }
         } while (!correctAmountOfNumbersEntered);
 
         /* TODO
               print an appropriate message using ToolKit.printArray() to show the numbers entered
          */
-        System.out.println(); //insert code here
+        System.out.println("You entered");
+        System.out.println(Toolkit.printArray(numbers)); //insert code here
         /* TODO
               create new BingoCard
          */
-        //insert code here
+        BingoCard card = new BingoCard(currentRowSize, currentColumnSize);
         /* TODO
               setCardNumbers for the new card
          */
-        //insert code here
+        card.setCardNumbers(numbers);
         /* TODO
               add the card to the ArrayList
          */
-        //insert code here
+        cards.add(card);
     }
 
     /* TODO
@@ -153,6 +147,10 @@ public class BingoController {
         /* TODO
               call printCardAsGrid() method here, Hint: use getCardNumbers() when getting cards
          */
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.printf("Card %2d numbers:%n", i);
+            printCardAsGrid(cards.get(i).getCardNumbers());
+        }
     }
 
     /* TODO
@@ -163,7 +161,21 @@ public class BingoController {
           it is a follow on method from listCards() and ensures that the grid structure is printed
      */
     public void printCardAsGrid(String numbers) {
-        //insert code here to print numbers as a grid
+        String[] numberArray = numbers.split(Defaults.getNumberSeparator());
+
+        int rowSize = currentRowSize;
+        int columnSize = currentColumnSize;
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < columnSize; j++) {
+                int number = Integer.parseInt(numberArray[i * columnSize + j]);
+                if (j == 0) {
+                    System.out.printf("%2d", number);
+                } else {
+                    System.out.printf("%3d", number);
+                }
+            }
+            System.out.println();
+        }
     }
 
     /* TODO
@@ -188,7 +200,11 @@ public class BingoController {
           mark off a number that was called when it equals one of the numbers on the BingoCard
      */
     public void markNumbers(int number) {
-        //insert code here
+        // Check every card to see if the number is on it
+        for (int i = 0; i < cards.size(); i++) {
+            System.out.printf("Checking card %d for %d%n", i, number);
+            cards.get(i).markNumber(number);
+        }
     }
 
     /* TODO
@@ -196,8 +212,12 @@ public class BingoController {
           the method should return the index of who the winner is
      */
     public int getWinnerId() {
-        //insert code here
-        return 0;
+        for (int i = 0; i < cards.size(); i++) {
+            if (cards.get(i).isWinner()) {
+                return i;
+            }
+        }
+        return Defaults.NO_WINNER;
     }
 
     /* TODO
@@ -237,6 +257,21 @@ public class BingoController {
             switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
                 case "0":
                     finished = true;
+                    break;
+                case "1":
+                    play();
+                    break;
+                case "2":
+                    setSeparator();
+                    break;
+                case "3":
+                    createCard();
+                    break;
+                case "4":
+                    listCards();
+                    break;
+                case "5":
+                    setSize();
                     break;
             }
         } while (!finished);

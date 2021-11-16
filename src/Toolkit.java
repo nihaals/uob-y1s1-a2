@@ -16,6 +16,9 @@ public class Toolkit {
         check the expected output here to ensure that it appears as it should
         return as a sb.toString()
    */
-        return sb.toString();
+        for (int i = 0; i < array.length; i++) {
+            sb.append(array[i].trim()).append(", ");
+        }
+        return sb.toString().substring(0, sb.toString().length() - 2);
     }
 }

@@ -45,9 +45,9 @@ public class BingoController {
 
     public void setSize() {
         setCurrentRowSize(parseInt(Toolkit.getInputForMessage(
-                "Enter the number of rows for the card")));
+                "Enter the number of rows for the card").trim()));
         setCurrentColumnSize(parseInt(Toolkit.getInputForMessage(
-                "Enter the number of columns for the card")));
+                "Enter the number of columns for the card").trim()));
         System.out.printf("The bingo card size is set to %d rows X %d columns%n",
                 getCurrentRowSize(),
                 getCurrentColumnSize());
@@ -165,7 +165,7 @@ public class BingoController {
     public void run() {
         boolean finished = false;
         do {
-            switch (Toolkit.getInputForMessage(getMenu(mainMenuItems))) {
+            switch (Toolkit.getInputForMessage(getMenu(mainMenuItems)).trim()) {
                 case OPTION_EXIT:
                     finished = true;
                     break;
